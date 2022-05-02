@@ -52,7 +52,7 @@ function App() {
             height: event.duration * heightPerMinute - BORDER_WIDTH * 2 + "px",
             border: BORDER_WIDTH + "px solid black",
           };
-          return <CalendarEvent event={event} style={style} />;
+          return <CalendarEvent event={event} style={style} key={event.id} />;
         });
       })}
     </div>
