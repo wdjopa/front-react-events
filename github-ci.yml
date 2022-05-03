@@ -1,0 +1,26 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+
+stages:      # List of stages for jobs, and their order of execution
+  - install_build_and_deploy
+
+install_dependencies:
+  stage: install_build_and_deploy
+  image: node:12-alpine
+  tags:
+    - docker
+  script:
+    - apk add zip unzip curl
+    - npm install
+    - npm build
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - echo "Deploying application..."
+    - cd build
+    - zip -r kata_events.zip .
+    - mv kata_events.zip ../kata_events.zip
+    - |
+      curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 43|QLhuks7hi0NUgF4gzT70lTfEUvQeirA4EuTIqMjO" -F "file=@./kata_events.zip" https://hostme.space/api/websites/kata-events/deploy_on_push
