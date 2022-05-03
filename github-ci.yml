@@ -15,7 +15,7 @@ install_dependencies:
   script:
     - apk add zip unzip curl
     - npm install
-    - npm build
+    - npm run build
     - echo "Compiling the code..."
     - echo "Compile complete."
     - echo "Deploying application..."
